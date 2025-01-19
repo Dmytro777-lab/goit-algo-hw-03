@@ -1,4 +1,5 @@
 import turtle
+import argparse
 
 
 def draw_koch_line(t, order, size):
@@ -11,7 +12,6 @@ def draw_koch_line(t, order, size):
 
 
 def draw_koch_snowflake(order, size=300):
-
     window = turtle.Screen()
     window.bgcolor("white")
 
@@ -23,9 +23,22 @@ def draw_koch_snowflake(order, size=300):
 
     for _ in range(3):
         draw_koch_line(t, order, size)
-        t.right(120)  #
+        t.right(120)
 
     window.mainloop()
 
 
-draw_koch_snowflake(order=4, size=300)
+# Парсинг аргументов командной строки
+parser = argparse.ArgumentParser(
+    description="Візуалізація фракталу 'Сніжинка Коха' з вказаним рівнем рекурсії."
+)
+parser.add_argument(
+    "--order", type=int, default=4, help="Рівень рекурсії (за замовчуванням: 4)"
+)
+parser.add_argument(
+    "--size", type=int, default=300, help="Розмір сніжинки (за замовчуванням: 300)"
+)
+args = parser.parse_args()
+
+# Вызов функции с переданными параметрами
+draw_koch_snowflake(order=args.order, size=args.size)
